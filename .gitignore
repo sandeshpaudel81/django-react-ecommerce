@@ -1,0 +1,6 @@
+*.log
+*.pot
+*.pyc
+__pycache__
+/myenv
+/frontend/node_modules
