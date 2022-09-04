@@ -50,7 +50,16 @@ function ProductEditScreen({match, history}) {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        // update product
+        dispatch(updateProduct({
+            _id:productId,
+            name,
+            price,
+            image,
+            brand,
+            category,
+            countInStock,
+            description
+        }))
     }
 
     return( 
