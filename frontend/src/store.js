@@ -1,6 +1,11 @@
+// store js is a configuration file to combine reducers, create global store and apply middleware
+// store is a state container which holds application state
+
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
+
+// importing all reducers related to product
 import { 
     productListReducer,
     productDetailsReducer,
@@ -8,9 +13,13 @@ import {
     productCreateReducer,
     productUpdateReducer,
 } from './reducers/productReducers'
+
+// importing reducer of cart
 import {
     cartReducer
 } from './reducers/cartReducers'
+
+// importing all reducers related to User
 import {
     userLoginReducer,
     userRegisterReducer,
@@ -20,6 +29,8 @@ import {
     userDeleteReducer,
     userUpdateReducer, 
 } from './reducers/userReducers';
+
+// importing all reducers related to Order
 import {
     orderCreateReducer,
     orderDetailsReducer,
@@ -28,7 +39,7 @@ import {
 } from './reducers/orderReducers'
 
 
-
+// combining all reducers
 const reducer = combineReducers({
     productList: productListReducer,
     productDetails: productDetailsReducer,
@@ -53,15 +64,20 @@ const reducer = combineReducers({
     
 })
 
+
+// get cart items from local storage of the browser and parse
 const cartItemsFromStorage = localStorage.getItem('cartItems') ?
         JSON.parse(localStorage.getItem('cartItems')) : []
 
+// get authenticated user information from local storage of the browser and parse
 const userInfoFromStorage = localStorage.getItem('userInfo') ?
         JSON.parse(localStorage.getItem('userInfo')) : null
 
+// get shipping address from local storage of the browser and parse
 const shippingAddressFromStorage = localStorage.getItem('shippingAddress') ?
         JSON.parse(localStorage.getItem('shippingAddress')) : {}
 
+// initial state of the application
 const initialState = {
     cart: { 
         cartItems: cartItemsFromStorage,
@@ -70,8 +86,10 @@ const initialState = {
     userLogin: { userInfo: userInfoFromStorage }
 }
 
+// initializing middleware
 const middleware = [thunk]
 
+// creating global store
 const store = createStore(reducer, initialState, composeWithDevTools(applyMiddleware(...middleware)))
 
 export default store
