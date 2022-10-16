@@ -1,9 +1,13 @@
 import { Container } from 'react-bootstrap'
+
+// Router and Routes from react-router-dom to manage all url routes in frontend
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
+// importing components
 import Header from './components/Header'
 import Footer from './components/Footer'
 
+// importing all screens or pages
 import HomeScreen from './screens/HomeScreen'
 import ProductScreen from './screens/ProductScreen'
 import CartScreen from './screens/CartScreen'
