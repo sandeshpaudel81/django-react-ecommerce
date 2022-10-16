@@ -77,7 +77,7 @@ const userInfoFromStorage = localStorage.getItem('userInfo') ?
 const shippingAddressFromStorage = localStorage.getItem('shippingAddress') ?
         JSON.parse(localStorage.getItem('shippingAddress')) : {}
 
-// initial state of the application
+// initial state of the application with data from local storage
 const initialState = {
     cart: { 
         cartItems: cartItemsFromStorage,
