@@ -19,12 +19,18 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+# base url configuration
+
 urlpatterns = [
+    # all routes related to admin:
     path('admin/', admin.site.urls),
-    # path('api/', include('base.urls')),
+    # all routes related to product:
     path('api/products/', include('base.urls.product_urls')),
+    # all routes related to orders:
     path('api/orders/', include('base.urls.order_urls')),
+    # all routes related to users
     path('api/users/', include('base.urls.user_urls')),
 ]
 
+# url routes for media files (user uploaded images, files, etc.)
 urlpatterns += static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
