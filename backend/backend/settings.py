@@ -25,6 +25,7 @@ SECRET_KEY = 'django-insecure-kta)vy-_+co84fry6+wm_rk6q7t=m4h9uukmgx^ix##f@(aydi
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# domains that are allowed to send request example: localhost, example.com
 ALLOWED_HOSTS = []
 
 
@@ -81,6 +82,8 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 
+# Middlewares are hooks that processes during request and response execution
+# It includes middlewares for security, session, csrf protection for form submission, authentication, Cross-Origin Resource Sharing (CORS)
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -94,6 +97,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'backend.urls'
 
+
+# routes of the templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
