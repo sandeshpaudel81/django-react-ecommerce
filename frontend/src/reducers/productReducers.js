@@ -1,3 +1,4 @@
+// importing constants
 import {
     PRODUCT_LIST_REQUEST,
     PRODUCT_LIST_SUCCESS,
@@ -22,6 +23,10 @@ import {
     PRODUCT_UPDATE_RESET,
 } from '../constants/productConstants'
 
+// Reducers are the functions that contain logic and calculations that needed to be performed on the state
+// according to action type passed by actions functions
+
+// reducer to get a list of products
 export const productListReducer = (state = { products: [] }, action) => {
     switch (action.type) {
         case PRODUCT_LIST_REQUEST:
