@@ -16,10 +16,12 @@ function LoginScreen({location, history}) {
 
     const redirect = location.search ? location.search.split('=')[1] : '/'
 
+    // get userLogin state from store and destructure it to check whether the user is already logged in or not
     const userLogin = useSelector(state => state.userLogin)
     const {error, loading, userInfo} = userLogin
 
     useEffect(() => {
+        // if the store has userInfo already, then redirect 
         if(userInfo){
             history.push(redirect)
         }
@@ -27,6 +29,7 @@ function LoginScreen({location, history}) {
 
     const submitHandler = (e) => {
         e.preventDefault()
+        // dispatch login function to send email and password to backend and get token for authentication
         dispatch(login(email, password))
     }
 
