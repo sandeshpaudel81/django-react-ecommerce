@@ -19,10 +19,12 @@ function RegisterScreen({location, history}) {
 
     const redirect = location.search ? location.search.split('=')[1] : '/'
 
+    // get userRegister state from store and destructure it to check whether the user is already logged in or not
     const userRegister = useSelector(state => state.userRegister)
     const {error, loading, userInfo} = userRegister
 
     useEffect(() => {
+        // if the store has userInfo already, then redirect
         if(userInfo){
             history.push(redirect)
         }
