@@ -9,19 +9,22 @@ import { getOrderDetails, payOrder } from '../actions/orderActions'
 import { ORDER_PAY_RESET } from '../constants/orderConstants'
 
 function OrderScreen({ match }) {
-
+    // get order id from url
     const orderId = match.params.id
     
     const dispatch = useDispatch()
-
+    // sdkReady boolean data for paypal payment 
     const [sdkReady, setSdkReady] = useState(false)
-    
+
+    // get orderDetails state from store and destructure it to get order, error or loading status
     const orderDetails = useSelector(state => state.orderDetails)
     const {order, error, loading} = orderDetails
 
+    // get orderPay state from store and destructure it to get loading and success status of payment
     const orderPay = useSelector(state => state.orderPay)
     const { loading:loadingPay, success:successPay } = orderPay
 
+    // this function adds paypal box if the order is not paid
     const addPayPalScript = () => {
         const script = document.createElement('script')
         script.type = 'text/javascript'
@@ -33,24 +36,31 @@ function OrderScreen({ match }) {
         document.body.appendChild(script)
     }
 
+    // if orderDetails has no error and loadin is False then calculate the total itemsPrice
     if(!loading && !error){
         order.itemsPrice = order.orderItems.reduce((acc, item) => acc + item.price*item.qty, 0).toFixed(2)
     }
 
+    // this function runs when this screen (Order Screen) is accessed
     useEffect(() => {
+        // if there is no order in the store OR if payment of the order is succeeded OR if params order id does not match with that in store
         if(!order || successPay || order._id !== Number(orderId)){
+            // reset the orderPay state
             dispatch({type: ORDER_PAY_RESET})
+            // call action to get order details from backend and save to the store
             dispatch(getOrderDetails(orderId))
-        } else if (!order.isPaid) {
+        } else if (!order.isPaid) { // if order is not paid
             if(!window.paypal){
-                addPayPalScript()
+                addPayPalScript() // add paypal box in the window
             } else {
                 setSdkReady(true)
             }
         }
     }, [dispatch, order, orderId, successPay])
 
+    // runs on success of paypal payment
     const successPaymentHandler = (paymentResult) => {
+        // call action to pay the order, send payment result to backend
         dispatch(payOrder(orderId, paymentResult))
     }
 
