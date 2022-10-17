@@ -9,10 +9,13 @@ import Message from '../components/Message'
 
 function HomeScreen() {
     const dispatch = useDispatch()
+    // get list of products from state
     const productList = useSelector(state => state.productList)
+    // destructuring productList state component into error message, loading status and actual data (products)
     const { error, loading, products} = productList
 
-    useEffect(() => {   
+    useEffect(() => {
+        // dispatch action to call api for fetching all products and save in the state   
         dispatch(listProducts())
     }, [dispatch])
 
